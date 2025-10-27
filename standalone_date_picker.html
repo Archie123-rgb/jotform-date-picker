@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi-Date Picker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    #multiDatePicker {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Select Multiple Dates</h2>
+  <input type="text" id="multiDatePicker" placeholder="Choose dates" />
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr("#multiDatePicker", {
+      mode: "multiple",
+      dateFormat: "Y-m-d",
+      onChange: function(selectedDates, dateStr, instance) {
+        // Send selected dates to parent Jotform form
+        window.parent.postMessage({
+          type: "setFieldValue",
+          fieldName: "Selected Dates",
+          value: dateStr
+        }, "*");
+      }
+    });
+  </script>
+</body>
+</html>
